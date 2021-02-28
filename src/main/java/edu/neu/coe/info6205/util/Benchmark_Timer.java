@@ -4,6 +4,11 @@
 
 package edu.neu.coe.info6205.util;
 
+import edu.neu.coe.info6205.sort.simple.InsertionSort;
+import edu.neu.coe.info6205.union_find.Assignment4_PSA;
+import edu.neu.coe.info6205.union_find.UF_HWQUPC;
+
+import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -125,4 +130,80 @@ public class Benchmark_Timer<T> implements Benchmark<T> {
     private final Consumer<T> fPost;
 
     final static LazyLogger logger = new LazyLogger(Benchmark_Timer.class);
+
+    public static void main(String[] args) {
+        int m = 500;
+        Random random = new Random();
+        /*System.out.println(" ");
+        System.out.println("RANDOMLY ORDERED ARRAY");
+        System.out.println(" ");*/
+        System.out.println("Linking every node with the root");
+        Assignment4_PSA assignment4_psa= new Assignment4_PSA(1000,true);
+        for (int n = 1000; n < 20000; n = n * 2) {
+            //InsertionSort<Integer> insertSort = new InsertionSort<>();
+            Consumer<Integer> consumer = num -> assignment4_psa.countGeneratedPairs(num);
+            Benchmark_Timer<Integer> benchmarkTimer = new Benchmark_Timer<>("" + n, consumer);
+            consumer.accept(n);
+            System.out.println(benchmarkTimer.run(n, m));
+        }
+
+        /*System.out.println("Linking node with the grandparent");
+        UF_HWQUPC unionFind = new UF_HWQUPC(1000,true);
+        for (int n = 1000; n < 20000; n = n * 2) {
+            //InsertionSort<Integer> insertSort = new InsertionSort<>();
+            Consumer<Integer> consumer = num -> unionFind.countGeneratedPairs(num);
+            Benchmark_Timer<Integer> benchmarkTimer = new Benchmark_Timer<>("" + n, consumer);
+            consumer.accept(n);
+            System.out.println(benchmarkTimer.run(n, m));
+        }*/
+
+        /*System.out.println(" ");
+        System.out.println("ORDERED ARRAY");
+        System.out.println(" ");
+        for (int n = 1000; n < 20000; n = n * 2) {
+            InsertionSort<Integer> insertSort = new InsertionSort<>();
+            Consumer<Integer[]> consumer = array -> insertSort.sort(array, 0, array.length);
+            Benchmark_Timer<Integer[]> benchmarkTimer = new Benchmark_Timer<>("InsertionSort for Ordered Array: " + n, consumer);
+
+            Integer[] array = new Integer[n];
+            for (int i = 0; i < n; i++)
+                array[i] = i;
+
+            consumer.accept(array);
+            System.out.println(benchmarkTimer.run(array, m));
+        }
+
+        System.out.println(" ");
+        System.out.println("REVERSE ORDERED ARRAY");
+        System.out.println(" ");
+        for (int n = 1000; n < 20000; n = n * 2) {
+            InsertionSort<Integer> insertSort = new InsertionSort<>();
+            Consumer<Integer[]> consumer = array -> insertSort.sort(array, 0, array.length);
+            Benchmark_Timer<Integer[]> benchmarkTimer = new Benchmark_Timer<>("InsertionSort for Reverse Ordered Array: " + n, consumer);
+
+            Integer[] array = new Integer[n];
+            for (int i = n - 1; i >= 0; i--)
+                array[i] = i;
+
+            consumer.accept(array);
+            System.out.println(benchmarkTimer.run(array, m));
+        }
+
+        System.out.println(" ");
+        System.out.println("PARTIALLY ORDERED ARRAY");
+        System.out.println(" ");
+        for (int n = 1000; n < 20000; n = n * 2) {
+            InsertionSort<Integer> insertSort = new InsertionSort<>();
+            Consumer<Integer[]> consumer = array -> insertSort.sort(array, 0, array.length);
+            Benchmark_Timer<Integer[]> benchmarkTimer = new Benchmark_Timer<>("InsertionSort for Partially Ordered Array: " + n, consumer);
+
+            Integer[] array = new Integer[n];
+            for (int i = 0; i < n/2; i++)
+                array[i] = i;
+            for (int j = n - 1 ; j >= n/2; j--)
+                array[j] = j;
+            consumer.accept(array);
+            System.out.println(benchmarkTimer.run(array, m));
+        }*/
+    }
 }

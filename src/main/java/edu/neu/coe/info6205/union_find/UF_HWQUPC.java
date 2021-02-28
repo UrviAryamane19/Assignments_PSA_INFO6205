@@ -197,7 +197,7 @@ public class UF_HWQUPC implements UF {
         }
     }
 
-    private void countGeneratedPairs(int n) {
+    public void countGeneratedPairs(int n) {
         int connections = 0;
         UF_HWQUPC conn = new UF_HWQUPC(n, true);
         Random randomInt = new Random();
